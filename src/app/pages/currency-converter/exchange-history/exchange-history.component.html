@@ -1,0 +1,53 @@
+<section class="page-shell">
+  <div class="page-header">
+    <div>
+      <p class="eyebrow">Exchange History</p>
+      <h1>匯率歷史頁</h1>
+      <p class="subtitle">
+        這一頁使用 component-store 與 schema parsing 整理匯率快照與短期歷史。
+      </p>
+    </div>
+    <div class="header-actions">
+      <a
+        mat-stroked-button
+        routerLink="/currency-converter"
+        routerLinkActive="is-active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >匯率換算</a
+      >
+      <a
+        mat-flat-button
+        routerLink="/currency-converter/history"
+        routerLinkActive="is-active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >匯率歷史</a
+      >
+      <a
+        mat-flat-button
+        routerLink="/currency-converter/workspace"
+        routerLinkActive="is-active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >匯率工作台</a
+      >
+    </div>
+  </div>
+
+  @if (vm$ | async; as vm) {
+  <div class="history-grid">
+    @for (currency of vm.spotlight; track currency.code) {
+    <mat-card class="panel">
+      <h2>{{ currency.code }}</h2>
+      <p>最新匯率 {{ currency.rate | number : "1.4-4" }}</p>
+      <div class="history-list">
+        @for (point of currency.history; track point.date) {
+        <div class="history-row">
+          <span>{{ point.date }}</span
+          ><strong>{{ point.value | number : "1.4-4" }}</strong>
+        </div>
+        }
+      </div>
+    </mat-card>
+    }
+  </div>
+  }
+</section>

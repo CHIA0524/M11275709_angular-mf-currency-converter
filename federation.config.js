@@ -5,7 +5,7 @@ module.exports = withNativeFederation({
   name: 'currency-converter',
 
   exposes: {
-    './CurrencyConverter': './src/app/pages/currency-converter.component.ts',
+    './CurrencyConverter': './src/app/pages/currency-converter/currency-converter.component.ts',
   },
 
   shared: {
