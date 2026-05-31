@@ -1,0 +1,58 @@
+<section class="page-shell">
+  <div class="page-header">
+    <div>
+      <p class="eyebrow">Currency Workspace</p>
+      <h1>匯率工作台</h1>
+      <p class="subtitle">這裡把匯率模組拉成資料視角，而不是只有單次換算。</p>
+    </div>
+    <div class="header-actions">
+      <a
+        mat-stroked-button
+        routerLink="/currency-converter"
+        routerLinkActive="is-active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >匯率換算</a
+      >
+      <a
+        mat-flat-button
+        routerLink="/currency-converter/history"
+        routerLinkActive="is-active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >匯率歷史</a
+      >
+      <a
+        mat-flat-button
+        routerLink="/currency-converter/workspace"
+        routerLinkActive="is-active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >匯率工作台</a
+      >
+    </div>
+  </div>
+
+  <mat-card class="panel selector-panel">
+    <mat-form-field appearance="outline">
+      <mat-label>基準幣別</mat-label>
+      <mat-select
+        [(ngModel)]="selectedBase"
+        (selectionChange)="updateBase($event.value)"
+      >
+        @for (base of baseOptions; track base) {
+        <mat-option [value]="base">{{ base }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </mat-card>
+
+  @if (vm$ | async; as vm) {
+  <div class="workspace-grid">
+    @for (currency of vm.spotlight; track currency.code) {
+    <mat-card class="panel">
+      <h2>{{ vm.base }} -> {{ currency.code }}</h2>
+      <p>最新匯率 {{ currency.rate | number : "1.4-4" }}</p>
+      <p>最近資料日 {{ vm.date }}</p>
+    </mat-card>
+    }
+  </div>
+  }
+</section>
