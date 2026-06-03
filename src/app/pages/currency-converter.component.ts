@@ -60,6 +60,7 @@ export class CurrencyConverterComponent implements OnInit {
 
   ngOnInit() {
     this.convert();
+    console.log('test')
   }
 
   onBaseCurrencyChange() {
